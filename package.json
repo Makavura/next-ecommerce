@@ -2,11 +2,20 @@
   "name": "next-ecommerce",
   "version": "0.1.0",
   "private": true,
+  "author": "Makavura Mughanga",
+  "description": "E-Commerce Storefront - a simple online store interface that lists products and lets users view product details and add items to a shopping cart. This project showcases dynamic pages and complex state.",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Makavura/next-ecommerce.git"
   },
   "dependencies": {
     "react": "^19.0.0",
