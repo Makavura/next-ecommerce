@@ -11,6 +11,11 @@ export default function Products() {
     queryFn: fetchProducts,
   });
 
+  /* 
+    Setup products listing:
+    - 
+  */
+
   if (!isLoading) {
     console.log(data);
   }
