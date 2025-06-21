@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 import RootNavBar from "./components/RootNavBar";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +20,8 @@ export const metadata: Metadata = {
   description: "",
 };
 
+const queryClient = new QueryClient();
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,8 +32,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen`}
       >
-        <RootNavBar />
-        {children}
+        <QueryClientProvider client={queryClient}>
+          <RootNavBar />
+          {children}
+        </QueryClientProvider>
       </body>
     </html>
   );
