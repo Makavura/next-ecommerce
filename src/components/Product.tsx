@@ -23,6 +23,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             className="h-full w-full"
             width={390}
             height={390}
+            placeholder="blur"
           />
           <button className="absolute top-3 right-3 p-2 rounded-full shadow-md text-slate-50 hover:text-red-600 focus:outline-none">
             <svg
