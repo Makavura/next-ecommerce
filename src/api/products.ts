@@ -1,10 +1,15 @@
+
 import axios from 'axios';
 
-import { Product } from '@/app/lib/types'
+import { Product } from '@/lib/types'
 
-export const fetchProducts = async (): Promise<Product[]> => {
+const fetchProducts = async (): Promise<Product[]> => {
     const response = await axios.get<Product[]>(
       `https://api.escuelajs.co/api/v1/products`
     );
     return response.data;
   };
+
+  export {
+    fetchProducts
+  }
