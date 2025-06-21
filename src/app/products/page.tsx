@@ -1,4 +1,20 @@
-export default function Home() {
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+
+import { fetchProducts } from "@/api/products";
+import { Product } from "@/lib/types";
+
+export default function Products() {
+  const { data, isLoading } = useQuery<Product[], Error>({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
+
+  if (!isLoading) {
+    console.log(data);
+  }
+  
   return (
     <div className="">
       <svg
