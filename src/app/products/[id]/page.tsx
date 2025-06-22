@@ -21,12 +21,6 @@ const ProductItem = () => {
     enabled: !!productId,
   });
 
-  console.log(params, productId, product);
-
-  if(product){
-    console.log(product)
-  }
-
   if (!isLoading)
     return (
       <div className="border-[0.5] border-slate-500 flex flex-col p-6 bg-white shadow-2xl">
