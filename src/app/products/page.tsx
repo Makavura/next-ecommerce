@@ -70,9 +70,9 @@ export default function Products() {
   return (
     <div className="container mx-auto">
       <div
-        className={`${anonymousPro.className}  flex flex-col md:flex-row justify-between`}
+        className={`${anonymousPro.className}  flex flex-col md:flex-row justify-between w-full`}
       >
-        <div className="flex border items-center border-black bg-white shadow-sm overflow-hidden w-1/2">
+        <div className="flex border items-center border-black bg-white shadow-sm overflow-hidden w-full md:w-1/2">
           <div className="flex-none py-2 px-3 text-sm text-gray-700 bg-gray-50 border-r border-gray-700">
             Select a category
           </div>
@@ -95,7 +95,7 @@ export default function Products() {
               ))}
           </select>
         </div>
-        <div className="flex items-center border border-black bg-white shadow-sm w-1/2">
+        <div className="flex items-center border border-black bg-white shadow-sm w-full md:w-1/2">
           <input
             type="text"
             placeholder="Search by name or description"
@@ -122,7 +122,7 @@ export default function Products() {
       </div>
 
       <div
-        className={`${anonymousPro.className}  flex flex-col md:flex-row justify-between`}
+        className={`${anonymousPro.className}  flex flex-row justify-between mt-3`}
       >
         {categories &&
           categories.map((category) => (
@@ -130,8 +130,8 @@ export default function Products() {
               key={category.id}
               onClick={() => handleTagClick(category.slug)}
               className={`
-              px-4 py-2 text-sm font-medium
-              transition-all duration-200 ease-in-out
+              px-3 md:px-10 py-3 text-sm font-medium
+              transition-all duration-200 ease-in-out hover:scale-125
               ${
                 selectedCategoryTags.includes(category.slug)
                   ? "bg-blue-600 text-white shadow-lg"
