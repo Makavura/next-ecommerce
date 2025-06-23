@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
 
+import { useCart } from "@/context/CartContext";
+
 const RootNavBar = () => {
+  const { getTotalItems } = useCart();
   return (
     <nav className="py-4 shadow-lg font-[family-name:var(--font-geist-mono)]">
       <div className="container mx-auto flex justify-between items-center mt-3">
@@ -43,7 +48,7 @@ const RootNavBar = () => {
               className="absolute -top-1 -right-1 text-sm font-bold w-6 h-6 flex items-center 
           justify-center rounded-full border-2 border-slate-500"
             >
-              3
+              {getTotalItems()}
             </span>
           </a>
           <a
