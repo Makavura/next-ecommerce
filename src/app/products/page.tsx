@@ -7,8 +7,12 @@ import { fetchProducts } from "@/api/products";
 import ProductCard from "@/components/Product";
 import { ICategory, IProduct } from "@/lib/types";
 import { fetchCategories } from "@/api/categories";
+import { ChangeEvent, useMemo, useState } from "react";
 
 export default function Products() {
+  const [searchParams, setSearchParams] = useState<string>();
+  const [categorySelect, setCategorySelect] = useState<string>("all");
+
   const { data: products } = useQuery<IProduct[], Error>({
     queryKey: ["products"],
     queryFn: fetchProducts,
@@ -19,6 +23,37 @@ export default function Products() {
     queryFn: fetchCategories,
   });
 
+  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>): void => {
+    setCategorySelect(e.target.value);
+  };
+
+  const handleSearchParamsEntry = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearchParams(e.target.value);
+  };
+
+  const searchedAndFilteredProducts = useMemo(() => {
+    let result = products ? [...(products as IProduct[])] : [];
+
+    if (categorySelect !== "all") {
+      result = result.filter(
+        (product) => product.category.slug === categorySelect
+      );
+    }
+
+    if (searchParams) {
+      const lowerCaseSearchParams = searchParams.toLocaleLowerCase();
+      result = result.filter(
+        (product) =>
+          product.title.toLocaleLowerCase().includes(lowerCaseSearchParams) ||
+          product.description
+            .toLocaleLowerCase()
+            .includes(lowerCaseSearchParams)
+      );
+    }
+
+    return result;
+  }, [products, searchParams, categorySelect]);
+
   return (
     <div className="container mx-auto">
       <div
@@ -28,13 +63,20 @@ export default function Products() {
           <div className="flex-none py-2 px-3 text-sm text-gray-700 bg-gray-50 border-r border-gray-700">
             Select a category
           </div>
-          <select defaultValue="All products" className="w-full h-full">
+          <select
+            defaultValue="All products"
+            className="w-full h-full"
+            onChange={handleCategoryChange}
+          >
             <option disabled={true} className="">
               Pick a category
             </option>
+            <option value="all" className="text-slate-700">
+              All categories
+            </option>
             {categories &&
               categories.map((category) => (
-                <option key={category.slug} className="">
+                <option key={category.slug} value={category.slug} className="">
                   {category.name}
                 </option>
               ))}
@@ -44,6 +86,7 @@ export default function Products() {
           <input
             type="text"
             placeholder="Search by name or description"
+            onChange={handleSearchParamsEntry}
             className="flex-grow p-3 text-gray-800 focus:outline-none focus:ring-0"
           />
           <button className="p-3 bg-white text-gray-600 hover:bg-gray-100 transition-colors duration-200">
@@ -65,7 +108,7 @@ export default function Products() {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-        {products?.map((product) => (
+        {searchedAndFilteredProducts?.map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}
       </div>
