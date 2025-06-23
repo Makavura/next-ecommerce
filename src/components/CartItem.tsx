@@ -1,14 +1,16 @@
 "use client";
 
 import Image from "next/image";
+
 import { ICartItem } from "@/lib/types";
 import { useCart } from "@/context/CartContext";
+import { anonymousPro, robotoMono } from "@/lib/fonts";
 
 const CartItem = ({ product }: { product: ICartItem }) => {
   const { updateQuantity, removeFromCart } = useCart();
 
   return (
-    <div className="flex flex-col md:flex-row bg-white mb-3 shadow-lg overflow-hidden w-full max-w-2xl">
+    <div className="bg-white rounded-none flex flex-col md:flex-row  mb-3 shadow-lg overflow-hidden w-full max-w-2xl">
       <div className="relative w-full md:w-1/3 bg-gray-200 flex items-center justify-center p-3">
         <Image
           width={200}
@@ -21,7 +23,11 @@ const CartItem = ({ product }: { product: ICartItem }) => {
 
       <div className="w-full md:w-2/3 p-3 flex flex-col justify-between">
         <div className="flex justify-between items-start mb-4">
-          <h2 className="text-xl font-bold text-gray-800">{product.title}</h2>
+          <h2
+            className={`${anonymousPro.className} text-xl font-bold text-gray-800`}
+          >
+            {product.title}
+          </h2>
           <div className="fle flex-col">
             <button
               onClick={() => removeFromCart(product.id)}
@@ -41,12 +47,14 @@ const CartItem = ({ product }: { product: ICartItem }) => {
           </div>
         </div>
 
-        <p className="text-gray-600 mb-6 flex-grow">
+        <p className={`${robotoMono.className} text-gray-600 mb-6 flex-grow`}>
           {product.description.slice(0, 90)}
         </p>
 
         <div className="flex justify-between items-center mt-auto">
-          <span className="text-3xl font-bold text-gray-900">
+          <span
+            className={`${anonymousPro.className} text-3xl font-bold text-gray-900`}
+          >
             ${product.price.toFixed(2)}
           </span>
           <div className="flex items-center">
@@ -57,7 +65,9 @@ const CartItem = ({ product }: { product: ICartItem }) => {
             >
               -
             </button>
-            <span className="px-4 py-1 text-lg font-semibold bg-gray-900 text-white">
+            <span
+              className={`${anonymousPro.className} px-4 py-1 text-lg font-semibold bg-gray-900 text-white`}
+            >
               {product.quantity}
             </span>
             <button
