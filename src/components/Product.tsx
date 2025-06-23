@@ -1,10 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { Product } from "@/lib/types";
+import {useCart} from "@/context/CartContext";
 import { anonymousPro, robotoMono } from "@/lib/fonts";
 
 const ProductCard = ({ product }: { product: Product }) => {
+  const { addToCart } = useCart();
   const router = useRouter();
   const handleProductView = () => {
     router.push(`/products/${product.id}`);
@@ -67,6 +71,7 @@ const ProductCard = ({ product }: { product: Product }) => {
               ${product.price}.00
             </span>
             <button
+              onClick={() => addToCart(product, 1)}
               className={`${anonymousPro.className} bg-gray-800 text-white px-5 py-2 rounded-none shadow-md hover:bg-gray-700 transition duration-300 transform hover:-translate-y-0.5`}
             >
               Add to cart
