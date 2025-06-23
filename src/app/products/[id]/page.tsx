@@ -26,13 +26,13 @@ const ProductItem = () => {
   if (!isLoading)
     return (
       <div className="border-[0.5] border-slate-500 flex flex-col p-6 bg-white shadow-2xl">
-        <div className="flex flex-row w-full">
+        <div className="flex flex-col flex-wrap w-full">
           {product?.images.map((value: string, index: number) => (
             <Image
               width={390}
               height={390}
               alt={product.slug}
-              className={`${index === 1 ? "mx-3" : ""} flex-grow h-auto`}
+              className={`${index === 1 ? "lg:mx-3 my-3 lg:my-0" : ""} flex-grow h-auto`}
               key={value}
               src={value}
             />

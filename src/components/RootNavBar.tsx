@@ -10,7 +10,7 @@ const RootNavBar = () => {
   const cartItemCount = getTotalItems();
 
   return (
-    <nav className="py-4 shadow-lg font-[family-name:var(--font-geist-mono)]">
+    <nav className="py-4 px-4 md:px-0 shadow-lg font-[family-name:var(--font-geist-mono)]">
       <div className="container mx-auto flex justify-between items-center mt-3">
         <a
           href="#"

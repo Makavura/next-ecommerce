@@ -9,7 +9,7 @@ const ShoppingCart = () => {
   const totalPrice = getTotalPrice();
 
   return (
-    <div className="grid grid-cols-3">
+    <div className="md:grid md:grid-cols-3">
       <div className="col-span-2">
         {cart?.map((product) => (
           <CartItem product={product} key={product.id} />
