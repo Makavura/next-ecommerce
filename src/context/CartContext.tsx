@@ -9,15 +9,11 @@ import React, {
   useMemo,
 } from "react";
 
-import { Product } from "@/lib/types";
-
-interface CartItem extends Product {
-  quantity: number;
-}
+import { IProduct, ICartItem } from "@/lib/types";
 
 interface CartContextType {
-  cart: CartItem[];
-  addToCart: (product: Product, quantity: number) => void;
+  cart: ICartItem[];
+  addToCart: (product: IProduct, quantity: number) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   clearCart: () => void;
@@ -32,7 +28,7 @@ interface CartProviderProps {
 }
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const [cart, setCart] = useState<CartItem[]>(() => {
+  const [cart, setCart] = useState<ICartItem[]>(() => {
     if (typeof window !== "undefined") {
       try {
         const savedCart = localStorage.getItem("cart");
@@ -72,7 +68,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
-  const addToCart = (product: Product, quantity: number) => {
+  const addToCart = (product: IProduct, quantity: number) => {
     if (quantity <= 0) return;
 
     setCart((prevCart) => {
@@ -94,10 +90,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
+    console.table(cart)
     setCart((prevCart) =>
       prevCart.map((item) =>
         item.id === productId
-          ? { ...item, quantity: Math.max(1, quantity) }
+          ? { ...item, quantity: item.quantity + quantity }
           : item
       )
     );

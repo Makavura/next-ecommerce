@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { Product } from "@/lib/types";
+import { IProduct } from "@/lib/types";
 import {useCart} from "@/context/CartContext";
 import { anonymousPro, robotoMono } from "@/lib/fonts";
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product }: { product: IProduct }) => {
   const { addToCart } = useCart();
   const router = useRouter();
   const handleProductView = () => {
