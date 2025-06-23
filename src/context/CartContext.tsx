@@ -90,7 +90,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
-    console.table(cart)
     setCart((prevCart) =>
       prevCart.map((item) =>
         item.id === productId
