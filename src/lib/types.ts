@@ -1,4 +1,4 @@
-interface Category {
+interface ICategory {
   id: number;
   name: string;
   slug: string;
@@ -7,15 +7,19 @@ interface Category {
   updatedAt: string;
 }
 
-interface Product {
+interface IProduct {
   id: number;
   title: string;
   slug: string;
   price: number;
   description: string;
-  category: Category;
+  category: ICategory;
   images: string[];
   creationAt: string;
   updatedAt: string;
 }
-export type { Product, Category };
+
+interface ICartItem extends IProduct {
+  quantity: number;
+}
+export type { IProduct, ICategory, ICartItem };

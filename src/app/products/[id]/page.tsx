@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
-import { Product } from "@/lib/types";
+import { IProduct } from "@/lib/types";
 import { fetchProduct } from "@/api/products";
 import {useCart} from "@/context/CartContext";
 import { anonymousPro, robotoMono } from "@/lib/fonts";
@@ -17,7 +17,7 @@ const ProductItem = () => {
   const { addToCart } = useCart()
   const params = useParams<TProductItemParams>()
   const { id: productId } = params;
-  const { isLoading, data: product } = useQuery<Product, Error>({
+  const { isLoading, data: product } = useQuery<IProduct, Error>({
     queryKey: ["product", productId],
     queryFn: () => fetchProduct(productId),
     enabled: !!productId,
@@ -56,7 +56,7 @@ const ProductItem = () => {
               ${product?.price}.00
             </span>
             <button
-              onClick={() => addToCart(product as Product, 1)}
+              onClick={() => addToCart(product as IProduct, 1)}
               className={`${anonymousPro.className} bg-gray-800 text-white px-5 py-2 rounded-none shadow-md hover:bg-gray-700 transition duration-300 transform hover:-translate-y-0.5`}
             >
               Add to cart
