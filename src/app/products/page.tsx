@@ -12,6 +12,7 @@ import { ChangeEvent, useMemo, useState } from "react";
 export default function Products() {
   const [searchParams, setSearchParams] = useState<string>();
   const [categorySelect, setCategorySelect] = useState<string>("all");
+  const [selectedCategoryTags, setSelectedCategoryTags] = useState<string[]>([ ]);
 
   const { data: products } = useQuery<IProduct[], Error>({
     queryKey: ["products"],
@@ -31,6 +32,14 @@ export default function Products() {
     setSearchParams(e.target.value);
   };
 
+  const handleTagClick = (slug: string) => {
+    if (selectedCategoryTags.includes(slug)) {
+      setSelectedCategoryTags(selectedCategoryTags.filter((id) => id !== slug));
+    } else {
+      setSelectedCategoryTags([...selectedCategoryTags, slug]);
+    }
+  };
+
   const searchedAndFilteredProducts = useMemo(() => {
     let result = products ? [...(products as IProduct[])] : [];
 
@@ -38,6 +47,10 @@ export default function Products() {
       result = result.filter(
         (product) => product.category.slug === categorySelect
       );
+    }
+
+    if(selectedCategoryTags.length > 0) {
+      result = result.filter((product) => selectedCategoryTags.includes(product.category.slug))
     }
 
     if (searchParams) {
@@ -52,7 +65,7 @@ export default function Products() {
     }
 
     return result;
-  }, [products, searchParams, categorySelect]);
+  }, [products, searchParams, categorySelect, selectedCategoryTags]);
 
   return (
     <div className="container mx-auto">
@@ -107,6 +120,30 @@ export default function Products() {
           </button>
         </div>
       </div>
+
+      <div
+        className={`${anonymousPro.className}  flex flex-col md:flex-row justify-between`}
+      >
+        {categories &&
+          categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => handleTagClick(category.slug)}
+              className={`
+              px-4 py-2 text-sm font-medium
+              transition-all duration-200 ease-in-out
+              ${
+                selectedCategoryTags.includes(category.slug)
+                  ? "bg-blue-600 text-white shadow-lg"
+                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+              }
+            `}
+            >
+              {category.name}
+            </button>
+          ))}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         {searchedAndFilteredProducts?.map((product) => (
           <ProductCard product={product} key={product.id} />
