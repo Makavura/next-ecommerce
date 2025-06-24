@@ -64,7 +64,10 @@ const SignUp = () => {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              Select favorites
+              Select favorites{" "}
+              <span className="text-xs text-slate-600 italic mx-2 pt-1">
+                Coming soon!
+              </span>
             </li>
           </ul>
         </div>
