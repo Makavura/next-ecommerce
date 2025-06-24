@@ -2,13 +2,17 @@
 
 import Image from "next/image";
 
+import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import Link from "next/link";
 
 const RootNavBar = () => {
+  const pathname = usePathname();
   const { getTotalItems } = useCart();
 
   const cartItemCount = getTotalItems();
 
+  if (pathname.includes("auth")) return null;
   return (
     <nav className="py-4 px-4 md:px-0 shadow-lg font-[family-name:var(--font-geist-mono)]">
       <div className="container mx-auto flex justify-between items-center mt-3">
@@ -26,8 +30,8 @@ const RootNavBar = () => {
           <span className="my-auto">The E-Commerce Store-Front</span>
         </a>
         <div className="flex items-center space-x-4 md:space-x-6">
-          <a
-            href="#"
+          <Link
+            href="/cart"
             className="relative flex items-center justify-center w-14 h-14 rounded-full border-slate-600 border-2"
           >
             <svg
@@ -53,13 +57,13 @@ const RootNavBar = () => {
             >
               {cartItemCount}
             </span>
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/auth/signin"
             className="border-slate-600 border-2 text-lg font-medium px-8 py-3 rounded-none"
           >
             Login
-          </a>
+          </Link>
         </div>
       </div>
 
