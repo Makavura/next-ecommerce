@@ -57,7 +57,9 @@ const RootNavBar = () => {
             >
               {cartItemCount}
             </span>
+
           </Link>
+
           <Link
             href="/auth/signin"
             className="border-slate-600 border-2 text-lg font-medium px-8 py-3 rounded-none"
