@@ -30,8 +30,8 @@ const RootNavBar = () => {
           <span className="my-auto">The E-Commerce Store-Front</span>
         </a>
         <div className="flex items-center space-x-4 md:space-x-6">
-          <a
-            href="#"
+          <Link
+            href="/cart"
             className="relative flex items-center justify-center w-14 h-14 rounded-full border-slate-600 border-2"
           >
             <svg
@@ -57,7 +57,9 @@ const RootNavBar = () => {
             >
               {cartItemCount}
             </span>
-          </a>
+
+          </Link>
+
           <Link
             href="/auth/signin"
             className="border-slate-600 border-2 text-lg font-medium px-8 py-3 rounded-none"

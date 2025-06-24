@@ -1,10 +1,11 @@
 "use client";
 
-import Image from "next/image";
 
 import { ICartItem } from "@/lib/types";
 import { useCart } from "@/context/CartContext";
 import { anonymousPro, robotoMono } from "@/lib/fonts";
+
+import ExternalImage from "./ExternalImage";
 
 const CartItem = ({ product }: { product: ICartItem }) => {
   const { updateQuantity, removeFromCart } = useCart();
@@ -12,7 +13,7 @@ const CartItem = ({ product }: { product: ICartItem }) => {
   return (
     <div className="bg-white rounded-none flex flex-col md:flex-row  mb-3 shadow-lg overflow-hidden w-full max-w-2xl">
       <div className="relative w-full md:w-1/3 bg-gray-200 flex items-center justify-center p-3">
-        <Image
+        <ExternalImage
           width={200}
           height={200}
           alt={product.title}
