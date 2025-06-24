@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { IProduct } from "@/lib/types";
 import {useCart} from "@/context/CartContext";
 import { anonymousPro, robotoMono } from "@/lib/fonts";
+import ExternalImage from "./ExternalImage";
 
 const ProductCard = ({ product }: { product: IProduct }) => {
   const { addToCart } = useCart();
@@ -18,7 +18,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
     return (
       <div className="bg-white rounded-none shadow-lg overflow-hidden flex flex-col transform transition duration-300 hover:scale-105">
         <div className="relative h-[420px] bg-gray-200 flex items-center justify-center rounded-2xl">
-          <Image
+          <ExternalImage
             src={product.images[0]}
             alt={product.slug}
             className="h-full w-full"
