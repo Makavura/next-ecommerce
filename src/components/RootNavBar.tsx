@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import Link from "next/link";
 
 const RootNavBar = () => {
   const pathname = usePathname();
@@ -57,12 +58,12 @@ const RootNavBar = () => {
               {cartItemCount}
             </span>
           </a>
-          <a
-            href="#"
+          <Link
+            href="/auth/signin"
             className="border-slate-600 border-2 text-lg font-medium px-8 py-3 rounded-none"
           >
             Login
-          </a>
+          </Link>
         </div>
       </div>
 
