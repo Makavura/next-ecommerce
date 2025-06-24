@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 
+import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 
 const RootNavBar = () => {
+  const pathname = usePathname();
   const { getTotalItems } = useCart();
 
   const cartItemCount = getTotalItems();
 
+  if (pathname.includes("auth")) return null;
   return (
     <nav className="py-4 px-4 md:px-0 shadow-lg font-[family-name:var(--font-geist-mono)]">
       <div className="container mx-auto flex justify-between items-center mt-3">
