@@ -1,70 +1,32 @@
-"use client";
-
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-
+import axios from "axios";
 import { IProduct } from "@/lib/types";
-import { fetchProduct } from "@/api/products";
-import {useCart} from "@/context/CartContext";
-import { anonymousPro, robotoMono } from "@/lib/fonts";
+import ProductItemCard from "@/components/ProductItemCard";
 
 type TProductItemParams = {
-    id: string;
+  id: string;
 };
 
-const ProductItem = () => {
-  const { addToCart } = useCart()
-  const params = useParams<TProductItemParams>()
-  const { id: productId } = params;
-  const { isLoading, data: product } = useQuery<IProduct, Error>({
-    queryKey: ["product", productId],
-    queryFn: () => fetchProduct(productId),
-    enabled: !!productId,
-  });
+export async function generateStaticParams() {
+  
+  const response = await axios.get<IProduct[]>(
+    `https://api.escuelajs.co/api/v1/products`
+  );
 
-  if (!isLoading)
-    return (
-      <div className="border-[0.5] border-slate-500 flex flex-col p-6 bg-white shadow-2xl">
-        <div className="flex flex-col flex-wrap w-full">
-          {product?.images.map((value: string, index: number) => (
-            <Image
-              width={390}
-              height={390}
-              alt={product.slug}
-              className={`${index === 1 ? "lg:mx-3 my-3 lg:my-0" : ""} flex-grow h-auto`}
-              key={value}
-              src={value}
-            />
-          ))}
-        </div>
-        <div className="mt-10">
-          <h2
-            className={`${anonymousPro.className} text-xl font-semibold text-gray-900 mb-3 `}
-          >
-            {product?.title}
-          </h2>
-          <p
-            className={`${robotoMono.className}  text-gray-700 text-sm leading-relaxed mb-4`}
-          >
-            {product?.description}
-          </p>
-          <div className="flex items-center justify-between mt-auto">
-            <span
-              className={`${anonymousPro.className} text-2xl font-bold text-gray-900`}
-            >
-              ${product?.price}.00
-            </span>
-            <button
-              onClick={() => addToCart(product as IProduct, 1)}
-              className={`${anonymousPro.className} bg-gray-800 text-white px-5 py-2 rounded-none shadow-md hover:bg-gray-700 transition duration-300 transform hover:-translate-y-0.5`}
-            >
-              Add to cart
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+  if (!response.data) {
+    throw new Error("Failed to fetch product list for static export.");
+  }
+
+  const products = response.data;
+
+  return products?.map((product) => ({
+    id: product.id.toLocaleString(),
+  }));
+}
+
+
+const ProductItem = async ({ params }: {params: Promise<TProductItemParams>}) => {
+  const productId = (await params).id
+  return <ProductItemCard productId={productId} />;
 };
 
 export default ProductItem;
