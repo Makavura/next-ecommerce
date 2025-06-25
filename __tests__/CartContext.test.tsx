@@ -4,7 +4,7 @@ import { render, screen, act, waitFor } from "@testing-library/react";
 
 import { IProduct, ICartItem } from "@/lib/types";
 import { CartProvider, useCart } from "@/context/CartContext";
-import { readMockProducts } from "../utils/tests/readMockProducts";
+import { readMockProducts } from "../readMockProducts";
 
 const mockProducts = readMockProducts();
 

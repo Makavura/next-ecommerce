@@ -4,7 +4,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import RootNavBar from "../components/RootNavBar";
+import RootNavBar from "../src/components/RootNavBar";
 
 jest.mock("next/navigation", () => ({
   usePathname: jest.fn(),
@@ -30,7 +30,7 @@ jest.mock("../context/CartContext", () => ({
 }));
 
 import { usePathname } from "next/navigation";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../src/context/CartContext";
 
 describe("RootNavBar", () => {
   beforeEach(() => {

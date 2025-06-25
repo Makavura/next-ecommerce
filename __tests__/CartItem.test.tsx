@@ -4,8 +4,8 @@ import { render, screen, fireEvent } from "@testing-library/react";
 
 import { ICartItem } from "@/lib/types";
 import CartItem from "@/components/CartItem";
-import { useCart } from "../context/CartContext";
-import {readMockProducts} from "@/utils/tests/readMockProducts";
+import { useCart } from "../src/context/CartContext";
+import {readMockProducts} from "../readMockProducts";
 
 jest.mock("../context/CartContext", () => ({
   useCart: jest.fn(),

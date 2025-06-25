@@ -7,7 +7,7 @@ import { IProduct } from "@/lib/types";
 import { fetchProduct } from "@/api/products";
 import { useCart } from "@/context/CartContext";
 import ProductItemCard from "@/components/ProductItemCard";
-import {readMockProducts} from "@/utils/tests/readMockProducts";
+import {readMockProducts} from "../readMockProducts";
 
 
 jest.mock("../context/CartContext", () => ({
@@ -32,7 +32,7 @@ const renderWithQueryClient = (productId: string) => {
   const queryClient = new QueryClient();
   return render(
     <QueryClientProvider client={queryClient}>
-      <ProductItemCard productId={productId} />
+      <ProductItemCard id={productId} />
     </QueryClientProvider>
   );
 };
