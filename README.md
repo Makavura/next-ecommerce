@@ -20,7 +20,8 @@
 > For a comprehensive listing of development work, please checkout the breakdown of it in a [Github Project](Github Project) _PS: You should have access to it if you have access to this repository._
 
 > The development was broken down into milestones which contained issues that were later incrementally developed using agile workflow.
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/689920fc-b674-4fd3-a872-6618ede65b47)
+
 To follow the timeline of development, checkout the PRs listed [here](https://github.com/Makavura/next-ecommerce/pulls?q=is%3Apr+is%3Aclosed)
 
 - ✅ Product listing page
@@ -102,4 +103,4 @@ Serve static content:
 
 Link: [Preview](https://www.figma.com/design/15YlX8v6Bfx0Q5vK4nuMN5/E-Commerce-StoreFront?node-id=0-1&p=f)
 
-![alt text](image-1.png)
+![image](https://github.com/user-attachments/assets/dd1dcbc7-2c47-4ea1-9520-600353b0455e)
