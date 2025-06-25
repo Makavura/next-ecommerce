@@ -99,8 +99,9 @@ Serve static content:
 `firebase deploy`
 
 
-> Design Guidelines
+> Design Guidelines. In a bid to keep the UI/UX consistent across all pages, I did some minor design work to set the pace. You can preview them via the link provided below.
 
 Link: [Preview](https://www.figma.com/design/15YlX8v6Bfx0Q5vK4nuMN5/E-Commerce-StoreFront?node-id=0-1&p=f)
 
 ![image](https://github.com/user-attachments/assets/dd1dcbc7-2c47-4ea1-9520-600353b0455e)
+
