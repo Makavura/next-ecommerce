@@ -2,46 +2,85 @@ import fs from "fs";
 import path from "path";
 import axios from "axios";
 
-import { IProduct } from "@/lib/types";
+import { ICategory, IProduct } from "@/lib/types";
 import ProductItemCard from "@/components/ProductItemCard";
 
 type TProductItemParams = {
   id: string;
 };
 
-const MOCK_FILE_NAME = "mockProducts.json";
-const MOCK_FILE_PATH = path.join(
+const MOCK_CATEGORIES_FILE_NAME = "mockCategories.json";
+const MOCK_CATEGORIES_FILE_PATH = path.join(
   "./",
   "src",
   "utils/tests",
-  MOCK_FILE_NAME
+  MOCK_CATEGORIES_FILE_NAME
 );
 
-const writeMockProducts = (products: IProduct[]) => {
-  const dir = path.dirname(MOCK_FILE_PATH);
+const MOCK_PRODUCTS_FILE_NAME = "mockProducts.json";
+const MOCK_PRODUCTS_FILE_PATH = path.join(
+  "./",
+  "src",
+  "utils/tests",
+  MOCK_PRODUCTS_FILE_NAME
+);
+
+const writeMockCategories = (categories: ICategory[]) => {
+  const dir = path.dirname(MOCK_CATEGORIES_FILE_PATH);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  fs.writeFileSync(MOCK_FILE_PATH, JSON.stringify(products, null, 2), "utf-8");
+  fs.writeFileSync(
+    MOCK_CATEGORIES_FILE_PATH,
+    JSON.stringify(categories, null, 2),
+    "utf-8"
+  );
+  console.table(categories);
+  console.log(
+    `Successfully saved ${categories.length} categories to ${MOCK_CATEGORIES_FILE_PATH}`
+  );
+};
+
+const writeMockProducts = (products: IProduct[]) => {
+  const dir = path.dirname(MOCK_PRODUCTS_FILE_PATH);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+
+  fs.writeFileSync(
+    MOCK_PRODUCTS_FILE_PATH,
+    JSON.stringify(products, null, 2),
+    "utf-8"
+  );
   console.table(products);
   console.log(
-    `Successfully saved ${products.length} products to ${MOCK_FILE_PATH}`
+    `Successfully saved ${products.length} products to ${MOCK_PRODUCTS_FILE_PATH}`
   );
 };
 
 export async function generateStaticParams() {
-  const response = await axios.get<IProduct[]>(
+  const productsResponse = await axios.get<IProduct[]>(
     `https://api.escuelajs.co/api/v1/products`
   );
 
-  if (!response.data) {
+  const categoriesResponse = await axios.get<ICategory[]>(
+    `https://api.escuelajs.co/api/v1/categories`
+  );
+
+  if (!productsResponse.data) {
     throw new Error("Failed to fetch product list for static export.");
   }
 
-  const products = response.data;
+  if (!categoriesResponse.data) {
+    throw new Error("Failed to fetch product list for e2e mock test data.");
+  }
+
+  const products = productsResponse.data;
+  const categories = categoriesResponse.data;
 
   writeMockProducts(products);
+  writeMockCategories(categories);
 
   return products?.map((product) => ({
     id: product.id.toLocaleString(),
