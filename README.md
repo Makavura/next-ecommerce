@@ -20,7 +20,7 @@
 > For a comprehensive listing of development work, please checkout the breakdown of it in a [Github Project](Github Project) _PS: You should have access to it if you have access to this repository._
 
 > The development was broken down into milestones which contained issues that were later incrementally developed using agile workflow.
-![image](https://github.com/user-attachments/assets/689920fc-b674-4fd3-a872-6618ede65b47)
+![image](./docs/assets/milestones.png)
 
 To follow the timeline of development, checkout the PRs listed [here](https://github.com/Makavura/next-ecommerce/pulls?q=is%3Apr+is%3Aclosed)
 
@@ -73,6 +73,12 @@ Routes:
 
 > Demo link: the project has been hosted on firebase, leveraging their experimental app hosting feature: View and test the project [here](https://next-ecommerce-mk.web.app/)
 
+### Unit tests
+
+> The test tooling uses jest. 
+
+Test files have been setup in a root `__tests__` folder.
+The dynamic routes setup includes two functions to write to json namely `writeMockProducts` & `writeMockCategories` that are referenced in the tests. These two functions run during build time and write to `mockProducts.json` & `mockCategories.json`. These two files have not been included in version control for obvious reasons.
 
 ### Deployment instructions:
 
@@ -98,10 +104,11 @@ Serve static content:
 
 `firebase deploy`
 
+### UI/UX Considerations
 
 > Design Guidelines. In a bid to keep the UI/UX consistent across all pages, I did some minor design work to set the pace. You can preview them via the link provided below.
 
 Link: [Preview](https://www.figma.com/design/15YlX8v6Bfx0Q5vK4nuMN5/E-Commerce-StoreFront?node-id=0-1&p=f)
 
-![image](https://github.com/user-attachments/assets/dd1dcbc7-2c47-4ea1-9520-600353b0455e)
+![image](./docs/assets/ui-ux-mockup.png)
 
