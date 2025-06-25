@@ -45,3 +45,4 @@ next-env.d.ts
 
 # QA Related files
 src/utils/tests/mockProducts.json
+src/utils/tests/mockCategories.json
