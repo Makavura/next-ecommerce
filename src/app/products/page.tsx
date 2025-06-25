@@ -2,27 +2,42 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { anonymousPro } from "@/lib/fonts";
-import { fetchProducts } from "@/api/products";
+import { anonymousPro, robotoMono } from "@/lib/fonts";
+import { fetchProductsWithPagination } from "@/api/products";
 import ProductCard from "@/components/ProductCard";
 import { ICategory, IProduct } from "@/lib/types";
 import { fetchCategories } from "@/api/categories";
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 
 export default function Products() {
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
   const [searchParams, setSearchParams] = useState<string>();
   const [categorySelect, setCategorySelect] = useState<string>("all");
-  const [selectedCategoryTags, setSelectedCategoryTags] = useState<string[]>([ ]);
+  const [selectedCategoryTags, setSelectedCategoryTags] = useState<string[]>(
+    []
+  );
 
   const { data: products } = useQuery<IProduct[], Error>({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
+    queryKey: ["products", page, pageSize],
+    queryFn: () => fetchProductsWithPagination(page, pageSize),
   });
 
   const { data: categories } = useQuery<ICategory[], Error>({
-    queryKey: ["categories"],
+    queryKey: ["categories", page, pageSize],
     queryFn: fetchCategories,
   });
+
+  const handlePrev = () => setPage((prev) => Math.max(prev - 1, 0));
+  const handleNext = () => {
+    if (products && products.length === pageSize) {
+      setPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPageSize(Number(e.target.value));
+  };
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     setCategorySelect(e.target.value);
@@ -40,6 +55,10 @@ export default function Products() {
     }
   };
 
+  useEffect(() => {
+    setPage(0);
+  }, [pageSize]);
+
   const searchedAndFilteredProducts = useMemo(() => {
     let result = products ? [...(products as IProduct[])] : [];
 
@@ -49,8 +68,10 @@ export default function Products() {
       );
     }
 
-    if(selectedCategoryTags.length > 0) {
-      result = result.filter((product) => selectedCategoryTags.includes(product.category.slug))
+    if (selectedCategoryTags.length > 0) {
+      result = result.filter((product) =>
+        selectedCategoryTags.includes(product.category.slug)
+      );
     }
 
     if (searchParams) {
@@ -148,6 +169,50 @@ export default function Products() {
         {searchedAndFilteredProducts?.map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}
+      </div>
+
+      <div
+        className={`${robotoMono.className} flex items-center mt-10 mb-10 space-x-4 `}
+      >
+        <button
+          onClick={handlePrev}
+          disabled={page === 0}
+          className="px-6 py-2 bg-black text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+        >
+          Previous
+        </button>
+
+        <div className="flex items-center border-[0.5] border-slate-950 ">
+          <span className="px-3 py-2 text-gray-700">Items per page:</span>
+          <div className="relative">
+            <select
+              value={pageSize}
+              onChange={handlePageSizeChange}
+              className="block appearance-none w-full bg-white border-l border-gray-300 text-gray-700 py-2 pl-3 pr-8 rounded-r-md leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+            >
+              <option>10</option>
+              <option>20</option>
+              <option>30</option>
+              <option>50</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <button
+          onClick={handleNext}
+          disabled={(products?.length as number) < pageSize}
+          className="px-8 py-2 bg-black text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
