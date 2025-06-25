@@ -172,7 +172,7 @@ export default function Products() {
       </div>
 
       <div
-        className={`${robotoMono.className} flex items-center mt-3 space-x-4 `}
+        className={`${robotoMono.className} flex items-center mt-10 mb-10 space-x-4 `}
       >
         <button
           onClick={handlePrev}
