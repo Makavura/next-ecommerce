@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { anonymousPro } from "@/lib/fonts";
 import { fetchProducts } from "@/api/products";
-import ProductCard from "@/components/Product";
+import ProductCard from "@/components/ProductCard";
 import { ICategory, IProduct } from "@/lib/types";
 import { fetchCategories } from "@/api/categories";
 import { ChangeEvent, useMemo, useState } from "react";
