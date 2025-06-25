@@ -39,4 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Firebase hosting
 .firebase/*
+
+# QA Related files
+src/utils/tests/mockProducts.json
