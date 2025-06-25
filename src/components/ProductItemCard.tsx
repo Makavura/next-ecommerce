@@ -5,23 +5,21 @@ import { useCart } from "@/context/CartContext";
 import { anonymousPro, robotoMono } from "@/lib/fonts";
 
 import { useQuery } from "@tanstack/react-query";
-import {IProduct} from "@/lib/types";
+import { IProduct } from "@/lib/types";
 import ExternalImage from "./ExternalImage";
 
-
-
-const ProductItemCard = ({ productId }: { productId: string }) => {
+const ProductItemCard = ({ id }: { id: string }) => {
   const { addToCart } = useCart();
   const { isLoading, data: product } = useQuery<IProduct, Error>({
-    queryKey: ["product", productId],
-    queryFn: () => fetchProduct(productId),
-    enabled: !!productId,
+    queryKey: ["product", id],
+    queryFn: () => fetchProduct(id),
+    enabled: !!id,
   });
 
   if (!isLoading)
     return (
       <div className="border-[0.5] border-slate-500 flex flex-col p-6 bg-white shadow-2xl">
-        <div className="flex flex-col flex-wrap w-full">
+        <div className="flex flex-col md:flex-row w-full">
           {product?.images.map((value: string, index: number) => (
             <ExternalImage
               width={390}
