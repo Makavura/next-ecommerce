@@ -2,7 +2,7 @@ import fs from "fs";
 
 import { IProduct } from "@/lib/types";
 
-const MOCK_FILE_PATH = "./src/utils/tests/mockProducts.json";
+const MOCK_FILE_PATH = "./mockProducts.json";
 
 const readMockProducts = (): IProduct[] => {
   try {

@@ -2,7 +2,7 @@ import fs from "fs";
 
 import { ICategory } from "@/lib/types";
 
-const MOCK_CATEGORIES_PATH = "./src/utils/tests/mockCategories.json";
+const MOCK_CATEGORIES_PATH = "./mockCategories.json";
 
 const readMockCategories = (): ICategory[] => {
   try {

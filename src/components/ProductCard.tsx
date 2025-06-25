@@ -3,15 +3,24 @@
 import { useRouter } from "next/navigation";
 
 import { IProduct } from "@/lib/types";
-import {useCart} from "@/context/CartContext";
-import { anonymousPro, robotoMono } from "@/lib/fonts";
 import ExternalImage from "./ExternalImage";
+import { useCart } from "@/context/CartContext";
+import { anonymousPro, robotoMono } from "@/lib/fonts";
+import { useFavorites } from "@/context/FavouriteProductsContext";
 
 const ProductCard = ({ product }: { product: IProduct }) => {
-  const { addToCart } = useCart();
   const router = useRouter();
+  const { addToCart } = useCart();
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+  const toggleFavorite = () => {
+    return isFavorite(product.id)
+      ? removeFavorite(product.id)
+      : addFavorite(product);
+  };
+
   const handleProductView = () => {
-    router.push(`/products/${product.id}`);
+    const id = product.id;
+    router.push(`/products/${id}`);
   };
 
   if (product.id !== 1)
@@ -25,7 +34,14 @@ const ProductCard = ({ product }: { product: IProduct }) => {
             width={390}
             height={390}
           />
-          <button className="absolute top-3 right-3 p-2 rounded-full shadow-md text-slate-50 hover:text-red-600 focus:outline-none">
+          <button
+            onClick={toggleFavorite}
+            className={`${
+              isFavorite(product.id)
+                ? "text-red-600"
+                : "text-slate-50 hover:text-red-600"
+            } absolute top-3 right-3 p-2 rounded-full shadow-md focus:outline-none`}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"

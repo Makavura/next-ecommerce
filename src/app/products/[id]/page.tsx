@@ -12,16 +12,12 @@ type TProductItemParams = {
 const MOCK_CATEGORIES_FILE_NAME = "mockCategories.json";
 const MOCK_CATEGORIES_FILE_PATH = path.join(
   "./",
-  "src",
-  "utils/tests",
   MOCK_CATEGORIES_FILE_NAME
 );
 
 const MOCK_PRODUCTS_FILE_NAME = "mockProducts.json";
 const MOCK_PRODUCTS_FILE_PATH = path.join(
   "./",
-  "src",
-  "utils/tests",
   MOCK_PRODUCTS_FILE_NAME
 );
 
@@ -83,7 +79,7 @@ export async function generateStaticParams() {
   writeMockCategories(categories);
 
   return products?.map((product) => ({
-    id: product.id.toLocaleString(),
+    id: product.id.toString(),
   }));
 }
 
@@ -92,8 +88,8 @@ const ProductItem = async ({
 }: {
   params: Promise<TProductItemParams>;
 }) => {
-  const productId = (await params).id;
-  return <ProductItemCard productId={productId} />;
+  const id = (await params).id;
+  return <ProductItemCard id={id} />;
 };
 
 export default ProductItem;

@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
-import ExternalImage from "../components/ExternalImage";
+import ExternalImage from "../src/components/ExternalImage";
 
 jest.mock("next/image", () => ({
   __esModule: true,

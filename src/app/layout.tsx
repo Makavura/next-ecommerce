@@ -6,6 +6,7 @@ import ReactQueryProvider from "@/utils/ReactQueryProvider";
 
 import "./globals.css";
 import RootNavBar from "../components/RootNavBar";
+import {FavoriteProductsProvider} from "@/context/FavouriteProductsContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +36,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen`}
       >
         <ReactQueryProvider>
-        <CartProvider>
-          <RootNavBar />
-          {children}
+          <CartProvider>
+            <FavoriteProductsProvider>
+              <RootNavBar />
+              {children}
+            </FavoriteProductsProvider>
           </CartProvider>
         </ReactQueryProvider>
       </body>
